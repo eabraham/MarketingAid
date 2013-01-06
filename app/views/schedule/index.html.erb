@@ -1,2 +1,28 @@
-<h1>Schedule#index</h1>
-<p>Find me in app/views/schedule/index.html.erb</p>
+<head>
+<%= stylesheet_link_tag "blueprint.css.scss" %>
+</head>
+<body>
+<div id="container" class="span-24">
+<%= render "layouts/navigation" %>
+
+<%= form_tag 'schedule/schedule_meetup_event' , :method=> :post do %>
+    <%= label_tag 'meetup_event_schedule', "Schedule Date/Time: "%>
+    <%= text_field_tag 'meetup_event_schedule' %><br>
+    <%= label_tag 'meetup_event_group','Meetup Group:' %>
+    <%= select('meetup_event_group','meetup_group_id',@meetup_groups) %><br>
+    <%= label_tag 'meetup_event_datetime', "Event Start Date/Time: "%>
+    <%= text_field_tag 'meetup_event_datetime' %><br>
+    <%= label_tag 'meetup_event_name', "Name: "%>
+    <%= text_field_tag 'meetup_event_name' %><br>
+    <%= label_tag 'meetup_event_description', "Description: "%><br>
+    <%= text_area_tag 'meetup_event_description' %><br>
+    <%= label_tag 'meetup_event_venue', "Venue: "%>
+    <%= text_field_tag 'meetup_event_venue' %><br>
+    
+    <%= submit_tag 'Schedule Event'%>
+<% end %>
+
+
+</div>
+</body>
+

@@ -39,3 +39,5 @@ gem 'jquery-rails'
 
 gem 'devise'
 gem 'oauth-plugin'
+gem 'delayed_job_active_record'
+gem 'twitter'

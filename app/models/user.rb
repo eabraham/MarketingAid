@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  has_many :Account
+  has_many :consumer_token
+  has_one  :twitter_token,:class_name=>"TwitterToken", :dependent=>:destroy
 
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,

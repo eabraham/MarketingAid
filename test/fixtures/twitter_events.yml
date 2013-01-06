@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  send_datetime: 2013-01-05 18:14:40
+  token_id: 1
+  tweet: MyString
+
+two:
+  send_datetime: 2013-01-05 18:14:40
+  token_id: 1
+  tweet: MyString
