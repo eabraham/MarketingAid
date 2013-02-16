@@ -4,23 +4,53 @@
 <body>
 <div id="container" class="span-24">
 <%= render "layouts/navigation" %>
-
+  <div id="meetup" class=" prepend-1 span-12">
 <%= form_tag 'schedule/schedule_meetup_event' , :method=> :post do %>
-    <%= label_tag 'meetup_event_schedule', "Schedule Date/Time: "%>
-    <%= text_field_tag 'meetup_event_schedule' %><br>
-    <%= label_tag 'meetup_event_group','Meetup Group:' %>
+    <fieldset>
+    <legend>Schedule Meetup Event Creation</legend>
+    <%= label_tag 'meetup_event_schedule', "Schedule Date/Time: "%><br>
+    <%= datetime_select('meetup_event_schedule', :default=>Time.now) %><br>
+    <%= label_tag 'meetup_event_group','Meetup Group:' %><br>
     <%= select('meetup_event_group','meetup_group_id',@meetup_groups) %><br>
-    <%= label_tag 'meetup_event_datetime', "Event Start Date/Time: "%>
-    <%= text_field_tag 'meetup_event_datetime' %><br>
-    <%= label_tag 'meetup_event_name', "Name: "%>
+    <%= label_tag 'meetup_event_datetime', "Event Start Date/Time: "%><br>
+    <%= datetime_select('meetup_event_datetime', :default=>Time.now) %><br>
+    <%= label_tag 'meetup_event_name', "Name: "%><br>
     <%= text_field_tag 'meetup_event_name' %><br>
     <%= label_tag 'meetup_event_description', "Description: "%><br>
     <%= text_area_tag 'meetup_event_description' %><br>
-    <%= label_tag 'meetup_event_venue', "Venue: "%>
+    <%= label_tag 'meetup_event_venue', "Venue: "%><br>
     <%= text_field_tag 'meetup_event_venue' %><br>
     
     <%= submit_tag 'Schedule Event'%>
+    </fieldset>
 <% end %>
+  </div>
+  <div id="twitter" class=" prepend-1 span-12">
+<%= form_tag 'schedule/schedule_tweet' , :method=> :post do %>
+    <fieldset>
+    <legend>Schedule Tweet</legend>
+    <%= label_tag 'tweet_schedule', "Schedule Date/Time: "%><br>
+    <%= text_field_tag 'tweet_schedule' %><br>
+    <%= label_tag 'tweet', "Tweet: "%><br>
+    <%= text_area_tag 'tweet' %><br>
+   
+    <%= submit_tag 'Schedule Tweet'%>
+    </fieldset>
+<% end %>
+  </div>
+  <div id="facebook" class=" prepend-1 span-12">
+<%= form_tag 'schedule/schedule_facebook' , :method=> :post do %>
+    <fieldset>
+    <legend>Schedule Tweet</legend>
+    <%= label_tag 'tweet_schedule', "Schedule Date/Time: "%><br>
+    <%= text_field_tag 'tweet_schedule' %><br>
+    <%= label_tag 'tweet', "Tweet: "%><br>
+    <%= text_area_tag 'tweet' %><br>
+
+    <%= submit_tag 'Schedule Tweet'%>
+    </fieldset>
+<% end %>
+  </div>
 
 
 </div>

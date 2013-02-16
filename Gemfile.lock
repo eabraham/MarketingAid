@@ -58,6 +58,10 @@ GEM
     erubis (2.7.0)
     execjs (1.4.0)
       multi_json (~> 1.0)
+    facebook_oauth (0.3.0)
+      json (>= 1.5.3)
+      mime-types (>= 1.16)
+      oauth2 (>= 0.5.1)
     faraday (0.8.4)
       multipart-post (~> 1.1)
     fssm (0.2.9)
@@ -152,6 +156,7 @@ DEPENDENCIES
   compass-rails
   delayed_job_active_record
   devise
+  facebook_oauth
   jquery-rails
   oauth-plugin
   rails (= 3.2.8)

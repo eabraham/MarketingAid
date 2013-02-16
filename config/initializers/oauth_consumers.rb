@@ -68,7 +68,7 @@ OAUTH_CREDENTIALS={
      :secret=>"4synh85gGbZNNF4WDnxmSTcz8xlhPK3pU4jTgag7g",
      :client=>:twitter_gem, # :twitter_gem or :oauth_gem (defaults to :twitter_gem)
      :expose => false, # expose client at /oauth_consumers/twitter/client see docs
-     :allow_login => true # Use :allow_login => true to allow user to login to account
+     :allow_login => true, # Use :allow_login => true to allow user to login to account
    },
 :meetup=>{
      :key=>"l9rede3qbg68nn9cqbuc8it4hq",
@@ -80,6 +80,11 @@ OAUTH_CREDENTIALS={
        :access_token_path=>"/oauth/access/",
        :authorize_path=>"/authenticate/"
      }
+   },
+:facebook=>{
+     :key => "443409775727621",
+     :secret => "10442d4c66ddaf6d7d24f95d6e742e4d",
+     :callback => "/facebook/callback"
    }
 } unless defined? OAUTH_CREDENTIALS
 
