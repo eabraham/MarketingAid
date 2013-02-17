@@ -1,5 +1,8 @@
 <head>
 <%= stylesheet_link_tag "blueprint.css.scss" %>
+<%= javascript_include_tag "jquery-ui-timepicker-addon.js" %>
+<%= javascript_include_tag "schedule.js" %>
+
 </head>
 <body>
 <div id="container" class="span-24">
@@ -9,11 +12,13 @@
     <fieldset>
     <legend>Schedule Meetup Event Creation</legend>
     <%= label_tag 'meetup_event_schedule', "Schedule Date/Time: "%><br>
-    <%= datetime_select('meetup_event_schedule', :default=>Time.now) %><br>
+    <%= text_field_tag 'meetup_event_schedule_date' %> -
+    <%= time_select('meetup_event_schedule_time',"", {:default=>Time.now, :minute_step => 15}) %><br>
     <%= label_tag 'meetup_event_group','Meetup Group:' %><br>
     <%= select('meetup_event_group','meetup_group_id',@meetup_groups) %><br>
     <%= label_tag 'meetup_event_datetime', "Event Start Date/Time: "%><br>
-    <%= datetime_select('meetup_event_datetime', :default=>Time.now) %><br>
+    <%= text_field_tag 'meetup_event_date' %> -
+    <%= time_select('meetup_event_time',"", {:default=>Time.now, :minute_step => 15}) %><br>
     <%= label_tag 'meetup_event_name', "Name: "%><br>
     <%= text_field_tag 'meetup_event_name' %><br>
     <%= label_tag 'meetup_event_description', "Description: "%><br>
@@ -21,7 +26,7 @@
     <%= label_tag 'meetup_event_venue', "Venue: "%><br>
     <%= text_field_tag 'meetup_event_venue' %><br>
     
-    <%= submit_tag 'Schedule Event'%>
+    <%= submit_tag 'Schedule Event', :class=>'orange' %>
     </fieldset>
 <% end %>
   </div>
@@ -30,11 +35,12 @@
     <fieldset>
     <legend>Schedule Tweet</legend>
     <%= label_tag 'tweet_schedule', "Schedule Date/Time: "%><br>
-    <%= text_field_tag 'tweet_schedule' %><br>
+    <%= text_field_tag 'tweet_schedule_date' %> -
+    <%= time_select('tweet_schedule_time',"", {:default=>Time.now, :minute_step => 15}) %><br>
     <%= label_tag 'tweet', "Tweet: "%><br>
     <%= text_area_tag 'tweet' %><br>
    
-    <%= submit_tag 'Schedule Tweet'%>
+    <%= submit_tag 'Schedule Tweet', :class=>'orange'%>
     </fieldset>
 <% end %>
   </div>
