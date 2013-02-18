@@ -24,7 +24,7 @@
     <%= label_tag 'meetup_event_description', "Description: "%><br>
     <%= text_area_tag 'meetup_event_description' %><br>
     <%= label_tag 'meetup_event_venue', "Venue: "%><br>
-    <%= text_field_tag 'meetup_event_venue' %><br>
+    <%= select('meetup_event_venue','meetup_venue_id',[] )%><br>
     
     <%= submit_tag 'Schedule Event', :class=>'orange' %>
     </fieldset>
@@ -41,19 +41,6 @@
     <%= text_area_tag 'tweet' %><br>
    
     <%= submit_tag 'Schedule Tweet', :class=>'orange'%>
-    </fieldset>
-<% end %>
-  </div>
-  <div id="facebook" class=" prepend-1 span-12">
-<%= form_tag 'schedule/schedule_facebook' , :method=> :post do %>
-    <fieldset>
-    <legend>Schedule Tweet</legend>
-    <%= label_tag 'tweet_schedule', "Schedule Date/Time: "%><br>
-    <%= text_field_tag 'tweet_schedule' %><br>
-    <%= label_tag 'tweet', "Tweet: "%><br>
-    <%= text_area_tag 'tweet' %><br>
-
-    <%= submit_tag 'Schedule Tweet'%>
     </fieldset>
 <% end %>
   </div>

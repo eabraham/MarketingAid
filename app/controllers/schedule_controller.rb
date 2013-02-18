@@ -6,8 +6,8 @@ class ScheduleController < ApplicationController
     @meetup_groups=get_meetup_groups
 
     job_data=Delayed::Job.all.map{|a| [a.payload_object.token,a.payload_object.object.consumer.site, a.run_at]}
-    job_runtime=Delayed::Job.all.reduce{|a,b| ({a.payload_object.token => a.run_at}).merge({b.payload_object.token => b.run_at})}
-    @consumer_token_detail=ConsumerToken.joins('INNER JOIN users ON users.id=consumer_tokens.user_id').where(:token=>job_runtime.keys).where('users.id = ?',current_user.id)
+    #job_runtime=Delayed::Job.all.reduce{|a,b| ({a.payload_object.token => a.run_at}).merge({b.payload_object.token => b.run_at})}
+    @consumer_token_detail=ConsumerToken.joins('INNER JOIN users ON users.id=consumer_tokens.user_id').where(:token=>job_data.map{|a| a[0]}).where('users.id = ?',current_user.id)
 
     
   end
@@ -17,9 +17,10 @@ class ScheduleController < ApplicationController
     group_id=params['meetup_event_group']['meetup_group_id']
     name=params['meetup_event_name']
     desc=params['meetup_event_description']
+    venue_id=params['meetup_event_venue_meetup_venue_id']
 
     meetupToken=ConsumerToken.find_by_type('MeetupToken')
-    meetupToken.client.delay({:run_at => schedule_time}).post('https://api.meetup.com/2/event',{:group_id=>group_id,:name=>name,:description=>desc,:time=>event_time.to_i/1000})
+    meetupToken.client.delay({:run_at => schedule_time}).post('https://api.meetup.com/2/event',{:group_id=>group_id,:name=>name,:description=>desc,:time=>event_time.to_i*1000, :venue_id=>venue_id})
 
     redirect_to :action => :index and return
   end
@@ -40,6 +41,18 @@ class ScheduleController < ApplicationController
     redirect_to :action => :index and return
   end
 
+  def get_group_venues
+    group_id=params['group_id']
+
+    meetupToken=ConsumerToken.find_by_type('MeetupToken')
+    puts "https://api.meetup.com/2/venues?group_id=#{group_id}"
+    q=meetupToken.client.get("https://api.meetup.com/2/venues?group_id=#{group_id}")
+    c=JSON.parse q.body
+    puts c['results'].count 
+
+    render :json =>c['results'].map{|a| [a['id'],a['name'],a['address_1'],a['state'],a['city']]} 
+  end
+
 private
   def get_meetup_groups
     meetupToken=ConsumerToken.find_by_type('MeetupToken')
@@ -47,7 +60,7 @@ private
     c=JSON.parse q.body
 
     #return array of group names, ids and current members role
-    return c['results'].map{|a| [a['name'],a['id'],a['self']['role']]}.select{|w| w[2]!=nil}
+    return c['results'].select{|a| a['self']['role']}.map{|b| [b['name'],b['id']]}
   end
 private
   def buildTime(date,time,format)
