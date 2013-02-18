@@ -14,7 +14,7 @@ jQuery    ->
 update_venues = ->
   $.ajax
     type: "POST"
-    url: "http://localhost:3000/schedule/get_meetup_venues"
+    url: "http://127.0.0.1:3000/schedule/get_meetup_venues"
     data:
       group_id: $("#meetup_event_group_meetup_group_id option").val()
 

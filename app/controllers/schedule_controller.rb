@@ -3,7 +3,14 @@ class ScheduleController < ApplicationController
   @@dateTimeFormat="%m-%d-%Y %H:%M"
 
   def index
-    @meetup_groups=get_meetup_groups
+    #connected services
+    cToken=ConsumerToken.where(:user_id=>current_user.id)
+    @has_meetup=!(cToken.select{|a| a.type=="MeetupToken"}).empty?
+    @has_twitter=!(cToken.select{|a| a.type=="TwitterToken"}).empty?
+
+    if @has_meetup
+      @meetup_groups=get_meetup_groups
+    end
 
     job_data=Delayed::Job.all.map{|a| [a.payload_object.token,a.payload_object.object.consumer.site, a.run_at]}
     #job_runtime=Delayed::Job.all.reduce{|a,b| ({a.payload_object.token => a.run_at}).merge({b.payload_object.token => b.run_at})}
