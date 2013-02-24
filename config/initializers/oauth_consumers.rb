@@ -81,11 +81,11 @@ OAUTH_CREDENTIALS={
        :authorize_path=>"/authenticate/"
      }
    },
-:facebook=>{
-     :key => "443409775727621",
-     :secret => "10442d4c66ddaf6d7d24f95d6e742e4d",
-     :callback => "/facebook/callback"
-   }
+#:facebook=>{
+#     :key => "443409775727621",
+#     :secret => "10442d4c66ddaf6d7d24f95d6e742e4d",
+#     :callback => "/facebook/callback"
+#   }
 } unless defined? OAUTH_CREDENTIALS
 
 load 'oauth/models/consumers/service_loader.rb'

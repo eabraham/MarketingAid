@@ -7,7 +7,12 @@
 <body>
 <div id="container" class="span-24">
 <%= render "layouts/navigation" %>
+<<<<<<< HEAD
   <div id="meetup-event" class=" prepend-1 span-12">
+=======
+  <% if @has_meetup %>
+  <div id="meetup" class=" prepend-1 span-12">
+>>>>>>> ee8db33bede1f54a039d1dcde3e22c6aa5df5f8d
 <%= form_tag 'schedule/schedule_meetup_event' , :method=> :post do %>
     <fieldset>
     <legend>Schedule Meetup Event Creation</legend>
@@ -30,6 +35,7 @@
     </fieldset>
 <% end %>
   </div>
+<<<<<<< HEAD
   <div id="meetup-message" class="prepend-1 span-12">
     <%= form_tag "schedule/schedule_meetup_comment", :method=> :post do %>
       <fieldset>
@@ -47,6 +53,9 @@
   </fieldset>
 <% end %>
   </div>
+=======
+  <% end %>
+>>>>>>> ee8db33bede1f54a039d1dcde3e22c6aa5df5f8d
   <div id="twitter" class=" prepend-1 span-12">
 <%= form_tag 'schedule/schedule_tweet' , :method=> :post do %>
     <fieldset>
