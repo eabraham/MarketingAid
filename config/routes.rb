@@ -13,8 +13,10 @@ MarketAid::Application.routes.draw do
   match "analytics" => "analytics#index", :as => :analytics
   match "schedule" => "schedule#index", :as => :schedule
   match "schedule/schedule_meetup_event" => "schedule#schedule_meetup_event", :via => [:put,:post]
+  match "schedule/schedule_meetup_comment" => "schedule#schedule_meetup_comment", :via => [:put,:post]
   match "schedule/schedule_tweet" => "schedule#schedule_tweet", :via => [:put,:post]
   match "schedule/get_meetup_venues" => "schedule#get_group_venues", :as=> :get_meetup_venues
+  match "schedule/get_meetup_events" => "schedule#get_group_events", :as=> :get_meetup_events
   match "services" => "oauth_consumers#index", :as=> :services
 
   devise_for :users

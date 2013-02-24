@@ -4,6 +4,7 @@ class ScheduleController < ApplicationController
 
   def index
     @meetup_groups=get_meetup_groups
+    @meetup_groups_admin=get_meetup_groups(true)
 
     job_data=Delayed::Job.all.map{|a| [a.payload_object.token,a.payload_object.object.consumer.site, a.run_at]}
     #job_runtime=Delayed::Job.all.reduce{|a,b| ({a.payload_object.token => a.run_at}).merge({b.payload_object.token => b.run_at})}
@@ -24,7 +25,16 @@ class ScheduleController < ApplicationController
 
     redirect_to :action => :index and return
   end
+  def schedule_meetup_comment
+    schedule_time=buildTime(params['meetup_comment_schedule_date'],params['meetup_comment_schedule_time'],@@dateTimeFormat)
+    event_id=params['meetup_event']['meetup_event_id']
+    comment=params['meetup_event_comment']
 
+    meetupToken=ConsumerToken.find_by_type('MeetupToken')
+    meetupToken.client.delay({:run_at => schedule_time}).post('https://api.meetup.com/2/event_comment',{:event_id=>event_id,:comment=>comment})
+
+   redirect_to :action => :index and return 
+  end
   def schedule_tweet
     
     schedule_time=buildTime(params['tweet_schedule_date'],params['tweet_schedule_time'],@@dateTimeFormat)
@@ -52,15 +62,27 @@ class ScheduleController < ApplicationController
 
     render :json =>c['results'].map{|a| [a['id'],a['name'],a['address_1'],a['state'],a['city']]} 
   end
+  def get_group_events
+    group_id=params['group_id']
+    meetupToken=ConsumerToken.find_by_type('MeetupToken')
+    q=meetupToken.client.get("https://api.meetup.com/2/events?member_id=self&group_id=#{group_id}")
+    c=JSON.parse q.body
+
+    render :json => c['results'].map{|a| [a['id'],a['name'],a['time']]}.sort_by{|d| d[2]}
+  end
 
 private
-  def get_meetup_groups
+  def get_meetup_groups(isAdmin=false)
     meetupToken=ConsumerToken.find_by_type('MeetupToken')
     q=meetupToken.client.get('https://api.meetup.com/2/groups?member_id=self&fields=self')
     c=JSON.parse q.body
 
     #return array of group names, ids and current members role
-    return c['results'].select{|a| a['self']['role']}.map{|b| [b['name'],b['id']]}
+    if isAdmin
+      return c['results'].select{|a| a['self']['role']}.map{|b| [b['name'],b['id']]}.sort_by{|d| d[0]}
+    else
+      return c['results'].select{|a| a['self']}.map{|b| [b['name'],b['id']]}.sort_by{|d| d[0]}
+    end
   end
 private
   def buildTime(date,time,format)
