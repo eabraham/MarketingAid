@@ -7,6 +7,7 @@ jQuery    ->
   update_events()
   $("#meetup_event_schedule_date").datepicker dateFormat: "mm-dd-yy"
   $("#meetup_event_date").datepicker dateFormat: "mm-dd-yy"
+  $("#meetup_comment_schedule_date").datepicker dateFormat: "mm-dd-yy"
   $("#tweet_schedule_date").datepicker dateFormat: "mm-dd-yy"
   $("#meetup_event_group_meetup_group_id").click ->
     update_venues()
@@ -18,7 +19,7 @@ jQuery    ->
 update_venues = ->
   $.ajax
     type: "POST"
-    url: "http://127.0.0.1:3000/schedule/get_meetup_venues"
+    url: "http://localhost:3000/schedule/get_meetup_venues"
     data:
       group_id: $("#meetup_event_group_meetup_group_id option").val()
 
