@@ -50,6 +50,7 @@
 <% end %>
   </div>
   <% end %>
+  <% if @has_twitter %>
   <div id="twitter" class=" prepend-1 span-12">
 <%= form_tag 'schedule/schedule_tweet' , :method=> :post do %>
     <fieldset>
@@ -64,8 +65,24 @@
     </fieldset>
 <% end %>
   </div>
+  <% end %>
 
+  <% if @has_facebook %>
+  <div id="facebook" class=" prepend-1 span-12">
+<%= form_tag 'schedule/schedule_facebook_status' , :method=> :post do %>
+    <fieldset>
+    <legend>Schedule Facebook Status</legend>
+    <%= label_tag 'facebook_status_schedule', "Schedule Date/Time: "%><br>
+    <%= text_field_tag 'facebook_status_schedule_date' %> -
+    <%= time_select('facebook_status_schedule_time',"", {:default=>Time.now, :minute_step => 15}) %><br>
+    <%= label_tag 'message', "Message: "%><br>
+    <%= text_area_tag 'message' %><br>
 
+    <%= submit_tag 'Schedule Post', :class=>'orange'%>
+    </fieldset>
+<% end %>
+  </div>
+  <% end %>
 </div>
 </body>
 

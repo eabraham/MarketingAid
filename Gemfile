@@ -32,7 +32,7 @@ gem 'jquery-rails'
 # gem 'unicorn'
 
 # Deploy with Capistrano
-# gem 'capistrano'
+ gem 'capistrano', :group => :development
 
 # To use debugger
 # gem 'debugger'
@@ -41,4 +41,5 @@ gem 'devise'
 gem 'oauth-plugin'
 gem 'delayed_job_active_record'
 gem 'twitter'
-gem 'facebook_oauth'
+gem 'oauth2', :git => 'https://github.com/tagCincy/oauth2.git'
+#gem 'facebook_oauth'

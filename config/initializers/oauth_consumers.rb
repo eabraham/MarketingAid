@@ -81,11 +81,23 @@ OAUTH_CREDENTIALS={
        :authorize_path=>"/authenticate/"
      }
    },
-#:facebook=>{
-#     :key => "443409775727621",
-#     :secret => "10442d4c66ddaf6d7d24f95d6e742e4d",
-#     :callback => "/facebook/callback"
-#   }
+:facebook=>{
+     :key => "443409775727621",
+     :secret => "10442d4c66ddaf6d7d24f95d6e742e4d",
+     :oauth_version => 2,
+     :options=>{
+       :site=>"https://graph.facebook.com",
+       #:authorize_url => "https://www.facebook.com/dialog/oauth",
+       :authorize_url => '/oauth/authorize',
+       :token_url => '/oauth/access_token',
+       #:request_token_path => "/oauth/request_token",
+       #:access_token_path => '/oauth/access_token',
+       :token_method=>:post,
+       #:authorize_path => '/oauth/authorize',
+       :token_params=> {:parse => :json},
+       :scope => 'offline_access,email'
+   }
+}
 } unless defined? OAUTH_CREDENTIALS
 
 load 'oauth/models/consumers/service_loader.rb'
